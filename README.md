@@ -2,7 +2,7 @@
 
 You are required to interface with the paginated api at /api/photos?page=1 and develop an infinite scroll component in angular 7. Fork this repo on github and start working on it and once you are done simply raise a pull request to the parent repo.
 
-##Set up details
+## Set up details
 
 *  npm i && ng serve
 * `npm run server` to run the express server that exposes the paginated API on localhost:5000
