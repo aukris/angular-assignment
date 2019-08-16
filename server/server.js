@@ -10,6 +10,7 @@ app.get('/api/photos', (req, res) => {
   const offset = ((page-1) % 10) * 50;
   const limit = 50;
   const photos = (page * 50);
+  res.header('Access-Control-Allow-Origin', '*');
   res.status(200).send({
     success: 'true',
     result: db.photos.slice(offset, offset+limit)
