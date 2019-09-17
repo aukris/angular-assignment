@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import {Observable, BehaviorSubject} from 'rxjs';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
@@ -13,6 +13,7 @@ import * as _ from 'lodash';
 })
 
 export class GalleryComponent {
+  @ViewChild('ele') block: ElementRef;
   public list: [] = [];
   private cache = [];
   private pgByManual$ = new BehaviorSubject(1);
@@ -21,7 +22,7 @@ export class GalleryComponent {
   private pgByScroll$ = fromEvent(window, 'scroll')
     .pipe(
       map(() => {
-        console.log('test scroll');
+        // console.log('test scroll');
         return window.scrollY;
 
         }),
@@ -38,10 +39,12 @@ export class GalleryComponent {
   private pgByResize$ = fromEvent(window, 'resize')
     .pipe(
       debounceTime(500),
-          map(_ => Math.ceil(
-        (window.innerHeight + document.body.scrollTop) /
-        (this.itemHeight * this.numberOfItems)
-      ))
+          map(() => {
+            return Math.ceil(
+              (window.innerHeight + document.body.scrollTop) /
+              (this.block.nativeElement.clientHeight * this.numberOfItems / 4)
+            );
+          })
     );
 
   private pgToLoad$ = merge(
@@ -57,7 +60,7 @@ export class GalleryComponent {
 
   itemResults$ = this.pgToLoad$
     .pipe(
-      tap(_ => this.loading = true),
+      tap(() => this.loading = true),
       flatMap((page: number) => {
         return this.api.fetch({url: 'photos', params: {page}})
           .pipe(
@@ -76,16 +79,5 @@ export class GalleryComponent {
     );
 
   constructor(private api: ApiService) {
-    // this.getPhotos();
-  }
-
-  getPhotos(page = 1): void {
-    const url = 'photos';
-    const params = {
-      page
-    };
-    this.api.fetch({url, params}).subscribe((data) => {
-      this.list = data.result;
-    });
   }
 }

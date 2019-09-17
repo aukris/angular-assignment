@@ -2,7 +2,7 @@
 <div style="text-align:center">
  <p>Gallery</p>
  <ul class="gallery">
-   <li *ngFor="let item of itemResults$|async" class="gallery_item">
+   <li #ele *ngFor="let item of itemResults$|async" class="gallery_item">
      <img src={{item.url}} class="image"/>
      <p>{{item.title}}</p>
    </li>
