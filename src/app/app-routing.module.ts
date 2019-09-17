@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ApiService } from './services/api.service';
+import { GalleryComponent } from './gallery/gallery.view';
 
-const routes: Routes = [];
+const routes: Routes = [ { path: '', component: GalleryComponent } ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  declarations: [ ],
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ],
+  providers: [ApiService]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
