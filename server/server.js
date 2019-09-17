@@ -1,7 +1,10 @@
 import express from 'express';
 import db from './db';
 // Set up the express app
-const app = express();
+var cors = require('cors')
+var app = express()
+
+app.use(cors())
 
 
 app.get('/api/photos', (req, res) => {

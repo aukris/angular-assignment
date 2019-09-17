@@ -1,0 +1,14 @@
+.gallery {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  &_item {
+    flex: 0 0 25%;
+    .image {
+      height: auto;
+      width: 100%;
+    }
+  }
+}
